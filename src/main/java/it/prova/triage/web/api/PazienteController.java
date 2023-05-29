@@ -2,7 +2,10 @@ package it.prova.triage.web.api;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -10,56 +13,45 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import it.prova.triage.dto.PazienteDTO;
-import it.prova.triage.model.Paziente;
 import it.prova.triage.service.PazienteService;
-import it.prova.triage.web.api.exception.IdNotNullForInsertException;
 
 @RestController
-@RequestMapping("api/paziente")
+@RequestMapping("/api/paziente")
 public class PazienteController {
-	
+
 	@Autowired
-	PazienteService pazienteService;
-	
+	private PazienteService pazienteService;
 	
 	@GetMapping
-	public List<PazienteDTO> getAll() {
-		return PazienteDTO.createPazienteDTOListFromModelList(pazienteService.listAllPazienti());
+	public List<PazienteDTO> visualizzaPazienti() {
+		return pazienteService.listAllPazienti();
 	}
-
 	
 	@GetMapping("/{id}")
-	public PazienteDTO caricaPaziente(@PathVariable(required = true) Long idInput) {
-		return  PazienteDTO.buildPazienteDTOFromModel(pazienteService.caricaSingoloPaziente(idInput));
+	public PazienteDTO visualizza(@PathVariable(required = true) Long id) {
+		return pazienteService.visualizzaPaziente(id);
 	}
 	
-	
-	@PostMapping("/inserisciNuovo")
-	public PazienteDTO createNewPaziente(@RequestBody Paziente pazienteInput) {
+	@PostMapping
+	public PazienteDTO createNew(@Valid @RequestBody PazienteDTO pazienteInput) {
 		if (pazienteInput.getId() != null)
-			throw new IdNotNullForInsertException("Non è ammesso fornire un id per la creazione");
-
-		Paziente pazienteInserito = pazienteService.inserisciNuovo(pazienteInput);
-		return PazienteDTO.buildPazienteDTOFromModel(pazienteInserito);
+			throw new RuntimeException();
+		return pazienteService.inserisciPaziente(pazienteInput);
 	}
-	
 	@PutMapping("/{id}")
-	public PazienteDTO updatePaziente(@RequestBody Paziente pazienteInput, @PathVariable Long id) {
-		Paziente pazienteToUpdate = pazienteService.caricaSingoloPaziente(id);
-		pazienteToUpdate.setNome(pazienteInput.getNome());
-		pazienteToUpdate.setCognome(pazienteInput.getCognome());
-		pazienteToUpdate.setCodiceFiscale(pazienteInput.getCodiceFiscale());
-		pazienteToUpdate.setDataRegistrazione(pazienteInput.getDataRegistrazione());
-		pazienteToUpdate.setStato(pazienteInput.getStato());
-		return PazienteDTO.buildPazienteDTOFromModel(pazienteService.aggiorna(pazienteToUpdate));
+	public PazienteDTO update(@Valid @RequestBody PazienteDTO pazienteInput, @PathVariable(required = true) Long id) {
+		if (pazienteInput.getId() != null)
+			throw new RuntimeException();
+		return pazienteService.aggiornaPaziente(pazienteInput);
 	}
 	
 	@DeleteMapping("/{id}")
-	public void deletePaziente(@PathVariable(required = true) Long id) {
-		pazienteService.rimuovi(pazienteService.caricaSingoloPaziente(id));
+	@ResponseStatus(HttpStatus.NO_CONTENT)
+	public void delete(@PathVariable(required = true) Long id) {
+		pazienteService.eliminaPaziente(id);
 	}
-	
 }

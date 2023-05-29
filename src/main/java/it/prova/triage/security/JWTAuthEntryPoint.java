@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+
 @Component
 public class JWTAuthEntryPoint implements AuthenticationEntryPoint {
 	private static final Logger logger = LoggerFactory.getLogger(JWTAuthEntryPoint.class);

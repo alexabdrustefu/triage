@@ -1,5 +1,4 @@
 package it.prova.triage.service;
-
 import java.util.List;
 
 import it.prova.triage.model.Ruolo;

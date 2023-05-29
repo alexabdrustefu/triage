@@ -1,4 +1,5 @@
 package it.prova.triage.security.auth;
+
 import java.util.Collections;
 import java.util.Map;
 
@@ -47,4 +48,4 @@ public class AuthController {
 		}
 	}
 
-}
+}		

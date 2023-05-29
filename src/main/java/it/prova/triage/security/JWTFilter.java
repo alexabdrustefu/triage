@@ -21,6 +21,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.exceptions.TokenExpiredException;
 
+
 @Component
 public class JWTFilter extends OncePerRequestFilter {
 	private static final Logger LOGGER = LoggerFactory.getLogger(JWTFilter.class);

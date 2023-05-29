@@ -1,5 +1,6 @@
 package it.prova.triage.security.dto;
 
+
 public class UtenteAuthDTO {
 
 	private String username;

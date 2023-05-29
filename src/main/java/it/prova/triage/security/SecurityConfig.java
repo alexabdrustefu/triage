@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+
 @Configuration
 @EnableWebSecurity 
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
@@ -43,12 +44,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.and()
 				
 				.authorizeHttpRequests() 
-				.antMatchers("/api/auth/login", "/h2-console/**").permitAll()
+				.antMatchers("/api/auth/login","/h2-console/**").permitAll()
 				//tutti gli utenti autenticati possono richiedere le info
 				.antMatchers("/api/utente/userInfo").authenticated()
-				.antMatchers("/api/utente/inserisciNuovo").hasRole("ADMIN")
 				.antMatchers("/api/utente/**").hasRole("ADMIN")
-				.antMatchers("/**").hasAnyRole("ADMIN", "ROLE_SUB_OPERATOR")
+				.antMatchers("/**").hasAnyRole("ADMIN", "CLASSIC_USER")
 				// .antMatchers("/anonymous*").anonymous()
 				.anyRequest().authenticated()
 				.and()

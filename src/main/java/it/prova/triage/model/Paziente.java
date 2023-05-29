@@ -1,11 +1,8 @@
 package it.prova.triage.model;
-
 import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -34,10 +31,9 @@ public class Paziente {
 	private String cognome;
 	@Column(name = "codicefiscale")
 	private String codiceFiscale;
-	@Column(name = "dataregistrazione")
-	private LocalDate dataRegistrazione;
+	@Column(name = "registrazione")
+	private LocalDate registrazione;
+	@Column(name = "statopaziente")
+	private StatoPaziente statoPaziente;
 	
-	@Enumerated(EnumType.STRING)
-	private StatoPaziente stato;
-
 }

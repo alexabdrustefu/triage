@@ -1,20 +1,19 @@
 package it.prova.triage.service;
 
-
 import java.util.List;
 
-import it.prova.triage.model.Paziente;
+import it.prova.triage.dto.PazienteDTO;
 
 public interface PazienteService {
-	public List<Paziente> listAllPazienti();
 
-	public Paziente caricaSingoloPaziente(Long id);
+	public List<PazienteDTO> listAllPazienti();
 
-	public Paziente aggiorna(Paziente pazienteInstance);
+	public PazienteDTO visualizzaPaziente(Long id);
 
-	public Paziente inserisciNuovo(Paziente pazienteInstance);
+	public PazienteDTO inserisciPaziente(PazienteDTO pazienteInput);
 
-	public void rimuovi(Paziente pazienteInstance);
+	public PazienteDTO aggiornaPaziente(PazienteDTO pazienteInput);
 
+	public void eliminaPaziente(Long id);
 
 }
