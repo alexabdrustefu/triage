@@ -6,5 +6,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import it.prova.triage.model.Paziente;
 
 public interface PazienteRepository extends PagingAndSortingRepository<Paziente, Long>, JpaSpecificationExecutor<Paziente> {
+	Paziente findByCodiceFiscale(String codiceFiscale); 
 
 }

@@ -31,6 +31,8 @@ public class Paziente {
 	private String cognome;
 	@Column(name = "codicefiscale")
 	private String codiceFiscale;
+	@Column(name = "CodiceDottore")
+	private String CodiceDottore;
 	@Column(name = "registrazione")
 	private LocalDate registrazione;
 	@Column(name = "statopaziente")

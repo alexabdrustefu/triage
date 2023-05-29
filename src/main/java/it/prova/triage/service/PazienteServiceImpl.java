@@ -46,5 +46,22 @@ public class PazienteServiceImpl implements PazienteService {
 	public void eliminaPaziente(Long id) {
 		repository.deleteById(id);
 	}
+	
+
+	@Override
+	public Paziente findByCodiceFiscale(String codiceFiscale) {
+		return repository.findByCodiceFiscale(codiceFiscale);
+	}
+	
+	@Override
+	public Paziente aggiorna(Paziente pazienteInstance) {
+		return repository.save(pazienteInstance);
+	}
+	
+	@Override
+	public Paziente caricaSingoloPaziente(Long id) {
+
+		return repository.findById(id).orElse(null);
+	}
 
 }
